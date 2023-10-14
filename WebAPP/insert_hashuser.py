@@ -22,10 +22,10 @@ class MySQLConnection:
         self.connection.close()
 
 # Set database connection parameters
-HOST = "127.0.0.1"
-DATABASE = "NITTANY"
-USER = "root"
-PASSWORD = "password123"
+HOST = ""
+DATABASE = ""
+USER = ""
+PASSWORD = ""
 
 # Create database connection using context manager
 with MySQLConnection(HOST, DATABASE, USER, PASSWORD) as db_connection:
