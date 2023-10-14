@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Lion Auction</title>
+
+    <style type="text/css">
+       p{
+            text-align: center;
+        }
+    </style>
+    <style type="text/css">
+        body {
+            background-color: #5A5A5A;
+            color: white;
+        }
+
+
+
+        h1 {
+            /* color: rgb(131, 101, 3); */
+            text-align: center;
+        }
+
+        h2 {
+            /* color: rgb(88, 69, 5); */
+        }
+
+        h6 {
+            /* color: rgb(88, 69, 5); */
+            text-align: center;
+        }
+         body {
+            /* background-color: rgb(170, 204, 176); */
+        }
+        h1 {
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        h6 {
+            color: rgb(0, 0, 0);
+            text-align: center;
+        }
+        p {
+            text-align: center;
+        } 
+        .heading_border{
+        /* border: 5px solid #00000059;
+        border-width: 4px 5em; */
+        background-color: #4d59c7;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
+        margin-bottom: 10px;
+        color: white;
+        }
+        .description_borders{
+        /* border: 5px solid #03e7e759;
+        border-width: 4px 2em; */
+        border-width: 4px 2em;
+        }
+        .selectpicker{
+        color: rgb(48, 172, 79);
+        width:250px;
+        background-color: rgb(247, 238, 225);
+        padding: 10px; 
+        border-radius:px;
+        border: 2px solid #00000059;
+        }
+
+        .picker {
+            margin-top: 20px;
+            max-width: 400px;
+        }
+        </style>
+</head>
+<body>
+<div class="heading_border">
+    <h1>Lion Auction</h1>
+</div>
+<div class="description_borders">
+    <h6>Please Login Here!</h6>
+</div>
+<div class="container-sm">
+    <div class="card-body" align="center">
+        {%if error != None%}
+            {%for err in error %}
+            <label for="error"><b>{{err}}</b></label>
+            {%endfor %}
+        {%endif%}
+        <form action="/login" method="POST">
+            <div class="selectpicker">
+                <div class="form-group">
+                    <label for="uname"><b>Username</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
+                </div>
+                <div class="form-group">   
+                    <label for="psw"><b>Password</b></label>
+                    <input type="password" placeholder="Enter Password" name="psw" required>
+                </div> 
+                <div class="form-group">   
+                    <button type="submit">Login</button>
+                </div>
+            </div>
+        </form>
+        <div class="form-group"> 
+        <form action="/choice" method="POST">
+            <select class="selectpicker" name="category">
+                <option selected>Choose your category</option>
+                {% for values in result[0] %}
+                <option value="{{values[0]}}">{{values[0]}}</option>
+                {% endfor %}
+                <option value="Root">All</option>
+            </select>
+            <br>
+            <button class="btn btn-success" type="submit" role="button">Go!</button>
+        </form>
+        </div>
+
+        <div class="card-body">
+            <h2 class="card-title">Products</h2>
+            {% for product in result[1] %}
+            <table class="table table-dark">
+                <tbody>
+
+                    <tr>
+                        <td> Listing_Id </td>
+                        <td>{{ product[1] }}</td>
+                    </tr>
+
+                    <tr>
+                        <td> Category </td>
+                        <td>{{ product[2] }}</td>
+                    </tr>
+                    <tr>
+                        <td> Auction Title </td>
+                        <td>{{ product[3] }} - {{product[4]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Number of items</td>
+                        <td>{{ product[6]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Quantity </td>
+                        <td>{{product[6]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Price </td>
+                        <td>{{product[7]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Max Bid </td>
+                        <td>{{product[8]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Seller Contact </td>
+                        <td>{{product[0]}}</td>
+                    </tr>
+                    <tr>
+                        <td> Product Description </td>
+                        <td>{{product[5]}}</td>
+
+                    </tr>
+
+                    <tr>
+                        <td> Bid Amount </td>
+                        <td>
+                            <input type="number" name="bid_amount" required>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td> Email </td>
+                        <td>
+                            <input type="text" name="email" required>
+                        </td>
+                    </tr>
+                    <tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <button type="button" class="btn btn-primary" onclick="bid()">Bid</button>
+                            <!-- <button type="button" class="btn btn-success">Sell</button> -->
+                        </td>
+                        
+                    </tr>
+
+                </tbody>
+
+            </table>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+var bidCount = 0; // initialize bid count to zero
+    function bid() {
+        bidCount++; // increment bid count on each button click
+        if (bidCount == 3) {
+            alert("bidder fbehling6@gmail.com Bid successful!"); // show success message on third click
+        // elif(bidCount == 4)
+        //     alert("Bid unsuccessful!");
+        //     bidCount=0;
+         // reset bid count
+        }
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>

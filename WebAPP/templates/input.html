@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <title>Lion Auction</title>
+    <style type="text/css">
+      p{
+           text-align: center;
+       }
+   </style>
+   <style type="text/css">
+       body {
+           background-color: #5A5A5A;
+           color: white;
+       }
+
+
+
+       h1 {
+           /* color: rgb(131, 101, 3); */
+           text-align: center;
+       }
+
+       h2 {
+           /* color: rgb(88, 69, 5); */
+       }
+
+       h6 {
+           /* color: rgb(88, 69, 5); */
+           text-align: center;
+       }
+        body {
+           /* background-color: rgb(170, 204, 176); */
+       }
+       h1 {
+           color: rgb(0, 0, 0);
+           text-align: center;
+       }
+       h6 {
+           color: rgb(0, 0, 0);
+           text-align: center;
+       }
+       p {
+           text-align: center;
+       } 
+       .heading_border{
+       /* border: 5px solid #00000059;
+       border-width: 4px 5em; */
+       background-color: #4d59c7;
+       padding-top: 30px;
+       padding-bottom: 30px;
+       /* box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); */
+       margin-bottom: 10px;
+       color: white;
+       }
+       .description_borders{
+       /* border: 5px solid #03e7e759;
+       border-width: 4px 2em; */
+       border-width: 4px 2em;
+       }
+       .selectpicker{
+       color: rgb(48, 172, 79);
+       width:250px;
+       background-color: rgb(247, 238, 225);
+       padding: 10px; 
+       border-radius:px;
+       border: 2px solid #00000059;
+       }
+
+       .picker {
+           margin-top: 20px;
+           max-width: 400px;
+       }
+    </style>
+</head>
+<body>
+<div class="heading_border">
+    <h1>Lion Auction</h1>
+</div>
+<div class="container-sm">
+    <div class="card-body">
+        <h2 class="card-title">Change Password</h2>
+
+        <form action="/update_password" method="POST">
+            <div class="form-group">
+                <label for="password">New Password</label>
+                <input type="text" name="password" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="re_password">Re-Enter Password</label>
+                <input type="text" name="re_password" required class="form-control">
+            </div>
+            <input type="text" name="email" value="{{result[0][0][0]}}" style="visibility:hidden">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-success" href="/" role="button">Go Back</a>
+        </form>
+    </div>
+    <div class="card border-secondary mb-3">
+      <div class="card-header bg-secondary text-white">User Info</div>
+      <div class="card-body">
+        <table class="table table-striped">
+          {% for email, first_name, last_name, gender, age, home_zipcode, home_street, home_city, home_state, billing_zipcode, billing_street, billing_city, billing_state in result[0] %}
+            <tr>
+              <td>Email:</td>
+              <td>{{ email }}</td>
+            </tr>
+            <tr>
+              <td>Name:</td>
+              <td>{{ first_name }} {{last_name}}</td>
+            </tr>
+            <tr>
+              <td>Gender:</td>
+              <td>{{gender}}</td>
+            </tr>
+            <tr>
+              <td>Age:</td>
+              <td>{{age}}</td>
+            </tr>
+            <tr>
+              <td>Home Address:</td>
+              <td>{{home_street}}, {{home_city}}, {{home_state}} {{home_zipcode}}</td>
+            </tr>
+            <tr>
+              <td>Billing Address:</td>
+              <td>{{billing_street}}, {{billing_city}}, {{billing_state}} {{billing_zipcode}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    <div class="card border-secondary mb-3">
+      <div class="card-header bg-secondary text-white">Bids Won</div>
+      <div class="card-body">
+        <table class="table table-striped">
+          {% for email, first_name, last_name, gender, age, home_zipcode, home_street, home_city, home_state, billing_zipcode, billing_street, billing_city, billing_state in result[0] %}
+            <tr>
+              <td>Transaction Id</td>
+              <td>55</td>
+            </tr>
+            <tr>
+              <td>Listing Id</td>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td>Seller Email</td>
+              <td>acazindy@lsu.edu</td>
+            </tr>
+            <tr>
+              <td>Date</td>
+              <td>04/25/23</td>
+            </tr>
+            <tr>
+              <td>Payment</td>
+              <td>45</td>
+            </tr>
+
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+    {% if(result[0]) %}
+    <div class="card-body">
+        <h2 class="card-title">Publish Listing</h2>
+
+        <form action="/update_listing" method="POST">
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select name="category" class="form-control">
+              <option value="55-Inch Tvs">55-Inch Tvs</option>
+              <option value="65-Inch Tvs">65-Inch Tvs</option>
+              <option value="75-Inch Tvs">75-Inch Tvs</option>
+              <option value="Annuals">Annuals</option>
+              <option value="Apple Watch">Apple Watch</option>
+              <option value="Bakery & Bread">Bakery & Bread</option>
+              <option value="Base Cabinets">Base Cabinets</option>
+              <option value="Baseball">Baseball</option>
+              <option value="Basketball">Basketball</option>
+              <option value="Bath Robes">Bath Robes</option>
+              <option value="Beauty Products">Beauty Products</option>
+              <option value="Beef & Lamb">Beef & Lamb</option>
+              <option value="Bikes">Bikes</option>
+              <option value="Bodysuits">Bodysuits</option>
+              <option value="Bottoms">Bottoms</option>
+              <option value="Boxing & Mma">Boxing & Mma</option>
+              <option value="Brushes & Applicators">Brushes & Applicators</option>
+              <option value="Cat">Cat</option>
+              <option value="Cat Dry Food">Cat Dry Food</option>
+              <option value="Cat Wet Food">Cat Wet Food</option>
+              <option value="Cell Phones">Cell Phones</option>
+              <option value="Climbing Trees">Climbing Trees</option>
+              <option value="Clothing">Clothing</option>
+              <option value="Cookies & Brownies">Cookies & Brownies</option>
+              <option value="Cooking Accessories">Cooking Accessories</option>
+              <option value="Cough, Cold & Flu">Cough, Cold & Flu</option>
+              <option value="Dog">Dog</option>
+              <option value="Dog Beds">Dog Beds</option>
+              <option value="Dog Dry Food">Dog Dry Food</option>
+              <option value="Dog Wet Food">Dog Wet Food</option>
+              <option value="Electric">Electric</option>
+              <option value="Electrical Supplies">Electrical Supplies</option>
+              <option value="Exercise & Fitness">Exercise & Fitness</option>
+              <option value="Exercise Machines">Exercise Machines</option>
+              <option value="Eye Care">Eye Care</option>
+              <option value="Face">Face</option>
+              <option value="Fresh Produce">Fresh Produce</option>
+              <option value="Grocery">Grocery</option>
+              <option value="Headphones">Headphones</option>
+              <option value="Health Care">Health Care</option>
+              <option value="High Cabinets">High Cabinets</option>
+              <option value="Indoor & Live Plants">Indoor & Live Plants</option>
+              <option value="Indoor Plants">Indoor Plants</option>
+              <option value="Iphone">Iphone</option>
+              <option value="Jeans">Jeans</option>
+              <option value="Kidkraft Bancroft Wooden Playhouse">Kidkraft Bancroft Wooden Playhouse</option>
+              <option value="Kitchen & Appliances">Kitchen & Appliances</option>
+              <option value="Kitchen & Cooking Accessories">Kitchen & Cooking Accessories</option>
+              <option value="Kitchen Cabinets">Kitchen Cabinets</option>
+              <option value="Kitchen Faucets">Kitchen Faucets</option>
+              <option value="Kitchen Faucets &amp; Sinks">Kitchen Faucets &amp; Sinks</option>
+              <option value="Kitchen Sinks">Kitchen Sinks</option>
+              <option value="Kitchen Utensils">Kitchen Utensils</option>
+              <option value="Lip">Lip</option>
+              <option value="Long Sleeves">Long Sleeves</option>
+              <option value="Makeup">Makeup</option>
+              <option value="Meat &amp; Seafood">Meat &amp; Seafood</option>
+              <option value="Mixing &amp; Measuring Tools">Mixing &amp; Measuring Tools</option>
+              <option value="Mountain">Mountain</option>
+              <option value="Outdoor Cushions">Outdoor Cushions</option>
+              <option value="Outdoor Decor">Outdoor Decor</option>
+              <option value="Outdoor Lighting">Outdoor Lighting</option>
+              <option value="Outdoor Play">Outdoor Play</option>
+              <option value="Pain Relievers">Pain Relievers</option>
+              <option value="Pants">Pants</option>
+              <option value="Patio &amp; Garden">Patio &amp; Garden</option>
+              <option value="Patio Conversation Sets">Patio Conversation Sets</option>
+              <option value="Patio Dining Sets">Patio Dining Sets</option>
+              <option value="Patio Furniture">Patio Furniture</option>
+              <option value="Performance Nutrition">Performance Nutrition</option>
+              <option value="Pets">Pets</option>
+              <option value="Pharmacy, Health &amp; Wellness">Pharmacy, Health &amp; Wellness</option>
+              <option value="Pies">Pies</option>
+              <option value="Plant Gifts">Plant Gifts</option>
+              <option value="Playstation">Playstation</option>
+              <option value="Porch Swings">Porch Swings</option>
+              <option value="Pork">Pork</option>
+              <option value="Rolls &amp; Buns">Rolls &amp; Buns</option>
+              <option value="Samsung">Samsung</option>
+              <option value="Seafood">Seafood</option>
+              <option value="Skirts">Skirts</option>
+              <option value="Sleep Support">Sleep Support</option>
+              <option value="Sleepwear">Sleepwear</option>
+              <option value="Sports">Sports</option>
+              <option value="Sports &amp; Outdoors">Sports &amp; Outdoors</option>
+              <option value="Tennis">Tennis</option>
+              <option value="Tops">Tops</option>
+              <option value="Toys">Toys</option>
+              <option value="Toys &amp; Video Games">Toys &amp; Video Games</option>
+              <option value="T-Shirts">T-Shirts</option>
+              <option value="Tv &amp; Home Theater">Tv &amp; Home Theater</option>
+              <option value="Video Games">Video Games</option>
+              <option value="Wall Cabinets">Wall Cabinets</option>
+              <option value="Wearable Technology">Wearable Technology</option>
+              <option value="Weight Loss">Weight Loss</option>
+              <option value="Wellness">Wellness</option>
+              <option value="Wireless Headphones">Wireless Headphones</option>
+              <option value="Yoga">Yoga</option>
+            </select>
+          </div>
+
+            <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" name="title" required class="form-control">
+            </div>
+
+            <div class="form-group">
+                <label for="product_name">Name</label>
+                <input type="text" name="product_name" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="product_description">Description</label>
+                <input type="text" name="product_description" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" name="reserve_price" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="quantity">quantity</label>
+                <input type="text" name="quantity" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="max_bids">max_bids</label>
+                <input type="text" name="max_bids" required class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="listing_status">listing_status</label>
+                <select name="listing_status" class="form-control">
+                  <option value="1">1</option>
+                  <option value="0">0</option>
+                  <option value="2">2</option>
+                </select>
+                <!-- <input type="text" name="listing_status" required class="form-control"> -->
+            </div>
+            <input type="text" name="email" value="{{result[0][0][0]}}" style="visibility:hidden">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a class="btn btn-success" href="/" role="button">Go Back</a>
+        </form>
+    </div>
+    {% endif %}
+
+
+    
+    
+
+
+
+
+    <div class="card-body">
+      <h4>Helpdesk Request Form</h4>
+      <form action="/submit_request" method="POST">
+        <div class="form-group">
+              <label for="request_type">Request Type:</label> 
+              <select name="request_type" class="form-control">
+                <option value="ChangeID">ChangeID</option>
+                <option value="MarketAnalysis">MarketAnalysis</option>
+                <option value="AddCategory">AddCategory</option>
+              </select>
+        </div>
+
+        <div class="form-group">
+            <label for="request_desc">Request Description:</label>
+            <textarea name="request_desc" required class="form-control"></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="request_status">request_status</label>
+            <select name="request_status" required class="form-control">
+            <!-- <select name="request_status" class="form-control"> -->
+              <option value="0">Not Solved</option>
+              <option value="1">Solved</option>
+            </select>
+            <!-- <input type="text" name="request_status" required class="form-control"> -->
+        </div>
+        <!-- </div> -->
+
+        <input type="text" name="email" value="{{result[0][0][0]}}" style="visibility:hidden">
+        <button type="submit" class="btn btn-primary">Submit Request</button>
+        <!-- <input type="submit" value="Submit Request"> -->
+        <a class="btn btn-success" href="/" role="button">Go Back</a>
+      </form>
+    </div>
+    
+
+
+    
+    
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
