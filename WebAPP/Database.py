@@ -6,7 +6,7 @@ import random
 import time
 
 def get_variable_data(query, values):
-    connection = mysql.connector.connect(user='root', password='Sumit@6597', host='127.0.0.1', database='LIONPATH')
+    connection = mysql.connector.connect(user='', password='', host='', database='')
     cursor = connection.cursor()
     cursor.execute(query, values)
     results = [row for row in cursor]
@@ -15,7 +15,7 @@ def get_variable_data(query, values):
 
 def get_checkin_data(email): 
     # create a connection
-    cnx = mysql.connector.connect(user='root', password='Sumit@6597', host='127.0.0.1', database='LIONPATH')
+    cnx = mysql.connector.connect(user='', password='', host='', database='')
     cursor = cnx.cursor()
 
     query = "SELECT B.email, B.first_name, B.last_name, B.gender, B.age, A.zipcode AS home_zipcode, A.street_name AS home_street, Z.city AS home_city, Z.state_id AS home_state, A1.zipcode AS billing_zipcode, A1.street_name AS billing_street, Z1.city AS billing_city, Z1.state_id AS billing_state FROM Bidders B JOIN Address A ON B.home_address_id = A.address_id JOIN Zipcode_Info Z ON A.zipcode = Z.zipcode JOIN Address A1 ON B.home_address_id = A1.address_id JOIN Zipcode_Info Z1 ON A1.zipcode = Z1.zipcode WHERE B.email = %s"
@@ -29,7 +29,7 @@ def get_checkin_data(email):
 
 def update(query, tuple):
     # create a connection
-    cnx = mysql.connector.connect(user='root', password='Sumit@6597', host='127.0.0.1', database='LIONPATH')
+    cnx = mysql.connector.connect(user='', password='', host='', database='')
     cursor = cnx.cursor()
     cursor.execute(query,tuple)
     cnx.commit()
@@ -38,7 +38,7 @@ def update(query, tuple):
 
 def get_data(query):
     # create a connection
-    cnx = mysql.connector.connect(user='root', password='Sumit@6597', host='127.0.0.1', database='LIONPATH')
+    cnx = mysql.connector.connect(user='', password='', host='', database='')
     cursor = cnx.cursor()
     cursor.execute(query)
     result = list()
@@ -50,7 +50,7 @@ def get_data(query):
 
 def check_for_data(query, tuple):
     # create a connection
-    cnx = mysql.connector.connect(user='root', password='Sumit@6597', host='127.0.0.1', database='LIONPATH')
+    cnx = mysql.connector.connect(user='', password='', host='', database='')
     cursor = cnx.cursor()
     cursor.execute(query,tuple)
     result = list()
