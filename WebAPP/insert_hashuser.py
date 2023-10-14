@@ -34,7 +34,7 @@ with MySQLConnection(HOST, DATABASE, USER, PASSWORD) as db_connection:
     print("Connected to:", db_connection.get_server_info())
 
     # Read data from CSV file
-    csv_file_path = r"/Users/kishorpallod/Downloads/lionproject/LionAuctionDataset-v5/Users.csv"
+    csv_file_path = r"Path to csv"
     csvreader = pd.read_csv(csv_file_path)
 
     # Hash password column values
